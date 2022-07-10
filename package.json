@@ -1,0 +1,19 @@
+{
+  "name": "wavelog-api-specs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LachlanNewman/wavelog-api-spec.git"
+  },
+  "author": "Lachlan Newman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LachlanNewman/wavelog-api-spec/issues"
+  },
+  "homepage": "https://github.com/LachlanNewman/wavelog-api-spec#readme"
+}
