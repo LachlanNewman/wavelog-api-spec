@@ -1,5 +1,5 @@
 {
-  "name": "wavelog-api-specs",
+  "name": "@lachlannewman/wavelog-api-specs",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -25,5 +25,9 @@
     "joi": "^17.6.0",
     "lodash": "^4.17.21",
     "typescript": "^4.7.4"
+  },
+  "publishConfig": {
+    "registry":"https://npm.pkg.github.com/",
+    "access": "public"
   }
 }
