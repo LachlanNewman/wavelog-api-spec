@@ -6,16 +6,26 @@ jobs:
     runs-on: ubuntu-latest 
     steps:
       - uses: actions/checkout@v2
-      # Setup .npmrc file to publish to GitHub Packages
-      - uses: actions/setup-node@v2
         with:
-          node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com'
-      - run: npm ci
+          fetch-depth: 0
+      - name: Get Branch
+        id: get_branch
+        run: |
+          raw=$(git branch -r --contains ${{ github.ref }})
+          branch=${raw##*origin\/}
+          echo ::set-output name=branch::${branch}
       - name: Get version
         id: get_version
         run: echo ::set-output name=version::${GITHUB_REF#refs/tags/}
-      - run: npm publish --tag $PUBLISH_VERSION
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
+          registry-url: 'https://npm.pkg.github.com'
+      - if: steps.get_branch.outputs.branch == 'main'
+        run: yarn && yarn build
+      - if: steps.get_branch.outputs.branch == 'main'
+        run: yarn publish --no-git-tag-version --new-version $PUBLISH_VERSION
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUBLISH_VERSION: ${{ steps.get_version.outputs.version }}
