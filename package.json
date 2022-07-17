@@ -4,7 +4,7 @@
   "main": "build/index",
   "types": "build/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig-build.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
