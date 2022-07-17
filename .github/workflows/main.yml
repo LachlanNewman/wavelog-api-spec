@@ -1,7 +1,6 @@
 name: Publish package to GitHub Packages
 on:
-  release:
-    types: [created]
+  - push
 jobs:
   build:
     runs-on: ubuntu-latest 
@@ -12,9 +11,11 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
-          # Defaults to the user or organization that owns the workflow file
-          scope: '@octocat'
       - run: npm ci
-      - run: npm publish
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=version::${GITHUB_REF#refs/tags/}
+      - run: npm publish --tag $PUBLISH_VERSION
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PUBLISH_VERSION: ${{ steps.get_version.outputs.version }}
