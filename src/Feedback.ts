@@ -4,6 +4,7 @@ import { getEncodeDecodePair } from "./Joi";
 
 export interface FeedbackRecord extends Feedback{
     id: string
+    test: string
 }
 
 export interface Feedback{
